@@ -1,0 +1,65 @@
+body {
+    background:white;
+  }
+  
+.class-list-container {
+    background: white;
+    width: 50vw;
+    height: 20vw;
+    margin: 10em auto;
+    border-radius: 15px;
+    padding: 20px 10px;
+    color: white;
+    border: 3px solid rgb(36, 110, 194);
+    text-align: center;
+  }
+  .class_names {
+      
+      /* background: lightblue; */
+      width: 25ch;
+      height: 18ch;
+      margin-top: 20em;
+  }
+  .class{
+    width: 35ch;
+    height: 10ch;
+    color: green;
+    background: lightblue;
+    border: 4px solid lightskyblue;
+    border-radius: 5px;
+    width: 100%; 
+    padding: 0.8em;
+    margin: 0.8em;
+    text-align: left;
+  }
+
+  .menuBookIcon{
+    width: 2vw;
+    height: 1vw;
+    display: inline;
+  }
+   .button {
+    background: rgb(12, 124, 251);
+    border-radius: 5px;
+    margin: 0px 5px;
+    padding: 3px 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    float: right;
+  } 
+  
+  .header {
+    margin: 0.5em;
+    font-size: 2em;
+    text-align: center;
+  }
+  
+   .create-class input[type="text"] {
+    margin: 2.5em 2em;
+    width: 80%;
+    outline: thick;
+    border: maroon;
+    padding: 0.5em;
+    font-size: large;
+  } 
