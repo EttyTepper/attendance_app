@@ -21,23 +21,25 @@ body {
       margin-top: 20em;
   }
   .class{
-    width: 35ch;
-    height: 10ch;
-    color: green;
-    background: lightblue;
-    border: 4px solid lightskyblue;
-    border-radius: 5px;
+    /* width: 35ch;
+    height: 10ch; */
+    color: rgb(235, 232, 232) !important;
+    background: rgb(2, 20, 92) !important;
+    border-style: outset;
+    /* border: 4px solid lightskyblue; 
+    border-radius: 5px; */
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     width: 100%; 
-    padding: 0.8em;
-    margin: 0.8em;
+    padding: 1%;
+    /* margin: 0.8em; */
     text-align: left;
   }
 
-  .menuBookIcon{
+  /* .menuBookIcon{
     width: 2vw;
     height: 1vw;
     display: inline;
-  }
+  } */
    .button {
     background: rgb(12, 124, 251);
     border-radius: 5px;
@@ -63,3 +65,10 @@ body {
     padding: 0.5em;
     font-size: large;
   } 
+
+
+  studentIconAndAmount {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }

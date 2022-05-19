@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -17,35 +17,29 @@ import TextField from '@mui/material/TextField';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 function CreateClass(){
     const {classes, setClasses} = useContext(ClassContext);
     const [personName, setPersonName] = useState([]);
     const addClass = props => {
         const newClass = [...classes, props];
-        console.log(props);
         setClasses(newClass);
+        console.log(classes);
     };
-   
-  //  const daysMet = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+
     return (
-       
+       <div>
         <div className="class-list-container">   
       
           <AddClass sx={{marginTop: '5ch'}} personName={personName} setPersonName={setPersonName} addClass={addClass}  />
-        
-                      
-           
-           <div className="class_names">
+        </div>
+          <Box sx={{ flexGrow: 1, margin: "5%" }}>           
+           <Grid  container spacing={4}>
+           {/* <div className="class_names"> */}
             {(classes.length === 0) ?
                 <div> </div>  :
                  
@@ -56,10 +50,13 @@ function CreateClass(){
                         index={index}
                         key={index}   
                     />
+                 
                   
                 ) ) }
-                
-            </div>
+              
+            {/* </div> */}
+            </Grid> 
+            </Box>
            
           
         </div>
@@ -71,7 +68,7 @@ function AddClass(props) {
     const handleSubmit = e => {
         e.preventDefault();
         if(value !== '' ){
-          props.addClass({name: value, day: props.personName});
+          props.addClass({name: value, day: props.personName, students: []});
         }
       
         setValue("");
@@ -105,16 +102,41 @@ function AddClass(props) {
 }
 function Class(props){
     
-  const [countStudents, setCountStudents] = useState(0);
+  
     return (
-        <Card  className="class">
-          <MenuBookIcon className="menuBookIcon" >menu_book</MenuBookIcon>
-            <div sx={{float: 'center'}}>{props.cls.name}</div> 
+        <Grid item xs={4}>
+
+
+          {/* boxShadow: 2,
+          bgcolor: (theme) =>
+            theme.palette.mode === "dark" ? "#101010" : "#fff",
+          color: (theme) =>
+            theme.palette.mode === "dark" ? "grey.300" : "grey.800",  */}
+        <Card  className="class" sx={{ height:"100%",  display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+          <div>
+          <Typography align="center"><MenuBookIcon sx={{fontSize: "3em"}}/ ></Typography>
+          <Typography align="center" variant="h3">{props.cls.name} </Typography>
+          </div>
+          <Divider sx={{backgroundColor: "white"}} />
+          <Stack direction="row" spacing={10} >
+            <div>
+            <Box>
+            <Stack direction ="row" spacing={3} >
+            <Typography variant="h5">Meeting Days:</Typography>
             {props.cls.day.map((item,index)=>(
-                <div key={index}>{item}</div>
+                <div key={index}><Typography variant="h5">{item}</Typography></div>
             ))}
-           <PersonIcon sx={{float: 'right'}}></PersonIcon><div>{countStudents}</div>
+            </Stack>
+            </Box>
+            </div>
+            <div className="studentIconAndAmount">
+           <PersonIcon sx={{fontSize: "5em"}}/><div><Typography align="center" variant="h5">{props.cls.students.length}</Typography></div>
+           </div>
+           </Stack>
         </Card>
+        </Grid>
+
+
     )
 }
 const ITEM_HEIGHT = 48;
@@ -195,6 +217,8 @@ function MultipleSelect(props) {
     </div>
   );
 }
+
+
 
 export const Class_Students = () => {
     return <CreateClass/>;

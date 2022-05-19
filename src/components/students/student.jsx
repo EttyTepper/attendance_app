@@ -8,28 +8,49 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import { ConnectingAirportsOutlined, TempleBuddhist } from '@mui/icons-material';
+import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
 function StudentControl(){
-    const {students, setStudents} = useContext(StudentContext);
     const {classes, setClasses} = useContext(ClassContext);
+    const [classNameSelected, setClassNameSelected] = useState("");
     const addStudent = props => {
-        const newStudent = [...students, props];
-        setStudents(newStudent);
-    };
-    const handleSubmit = () =>{
+        const tempClasses = [...classes];
+        const index = tempClasses.findIndex((cls) => cls.name === classNameSelected);
+        const updatedClass = classes[index];
+        const currStudentList = [...updatedClass.students]
+        const newStudentList = [...currStudentList, props ];
+        const temp =[];
+        tempClasses.map((cls, index) =>{
+            if(cls.name === classNameSelected){
+                temp.push( {name: classNameSelected, day: cls.day, students: newStudentList });
+            }else{
+                temp.push( classes[index]);
+                
+            }
+    });
+        setClasses(temp);
 
-    }
+    };
+
     return(
     <div>
         STUDENT LISTS
         <div className='add-student'>
         <AddStudent addStudent={addStudent} />
-        <LongMenu classes={classes} />
+        <LongMenu setClassNameSelected={setClassNameSelected} classes={classes} />
+
+        
+        </div>
+
         <div className="student_names">
-            {(students.length === 0) ?
-                <div> </div>  :
+            {console.log("by Map")}
+            {console.log(classes[0])}
+            {classes[0].students.length === 0 ?
+                <div> there are zero students</div>  : (
+       
                  
-                students.map((stud, index) => (
+                classes[0].students.map((stud, index) => (
                  
                     <StudentInfo 
                         stud={stud}
@@ -37,9 +58,7 @@ function StudentControl(){
                         key={index}   
                     />
                   
-                ) ) }  
-        </div>
-        <IconButton onClick={handleSubmit}><AddBoxIcon/>Add Student</IconButton>
+                )) ) }  
         </div>
     </div>
     )
@@ -49,8 +68,8 @@ function StudentInfo(props){
     return (
         <Box  className="class">
           
-            <div sx={{float: 'center'}}>{props.firstName}</div> 
-            <div sx={{float: 'center'}}>{props.lastName}</div> 
+            <div sx={{float: 'center'}}>{props.stud.firstName}</div> 
+            <div sx={{float: 'center'}}>{props.stud.lastName}</div> 
         </Box>
     )
 };
@@ -59,12 +78,11 @@ function AddStudent(props) {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
 
-    const handleSubmit = e => {
-        e.preventDefault();
-
-       // props.addStudent({name: value, day: props.personName});
-      //  props.setNumStudents(0);
-        props.addStudent({firstName: firstName, lastName: lastName});
+    const handleSubmit = () => {
+       // e.preventDefault();
+        console.log("in first method");
+ 
+        props.addStudent({firstName: firstName, lastName: lastName, present: 0, absent: 0, tardy: 0});
        
     }
         return(
@@ -75,8 +93,8 @@ function AddStudent(props) {
             <TextField id="outlined-basic" variant="outlined" className="input"
                 lastname={props.lastname}
                 onChange={e => setLastName(e.target.value)}/>
-            <Button onSubmit={handleSubmit}>Add Student</Button>
-           {/* grade should be a drop down */}
+
+            <IconButton onClick={() => handleSubmit()} ><AddBoxIcon />Add Student</IconButton>
             </div>
         )
 }
@@ -87,14 +105,17 @@ function AddStudent(props) {
 
 function LongMenu(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
-      setAnchorEl(null);
+    
+    props.setAnchorEl(null);
     };
-  
+
     return (
       <div>
         <IconButton
@@ -124,14 +145,24 @@ function LongMenu(props) {
           }}
         >
           {props.classes.map((cls, index) => (
-            <MenuItem key={cls.name} index={index} selected={cls === ''} onClick={handleClose}>
-              {cls.name}
-            </MenuItem>
+              <ClassMenuItem key={index} setAnchorEl={setAnchorEl} setClassNameSelected={props.setClassNameSelected} cls={cls} handleClose={handleClose}/>
           ))}
         </Menu>
       </div>
     );
   }
+
+ const ClassMenuItem =(props)=>{
+    const handleClose = () => {
+        props.setClassNameSelected(props.cls.name);
+        props.setAnchorEl(null);
+      };
+      return(
+    <MenuItem key={props.cls.name} index={props.index} selected={props.cls === ''} onClick={handleClose} >
+    {props.cls.name}
+  </MenuItem>
+      );
+ } 
 export const Student = () =>{
     return <StudentControl />;
 }
