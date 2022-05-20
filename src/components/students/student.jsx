@@ -8,8 +8,12 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import { ConnectingAirportsOutlined, TempleBuddhist } from '@mui/icons-material';
-import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+// import { ConnectingAirportsOutlined, TempleBuddhist } from '@mui/icons-material';
+// import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
 function StudentControl(){
     const {classes, setClasses} = useContext(ClassContext);
@@ -29,8 +33,12 @@ function StudentControl(){
                 
             }
     });
-        setClasses(temp);
+    
 
+        setClasses(temp);
+        console.log("in method");
+        console.log(temp);
+    //     console.log(classes);
     };
 
     return(
@@ -46,6 +54,9 @@ function StudentControl(){
         <div className="student_names">
             {console.log("by Map")}
             {console.log(classes[0])}
+            {console.log("Loggin chosen class")}
+            {console.log(classNameSelected)}
+            
             {classes[0].students.length === 0 ?
                 <div> there are zero students</div>  : (
        
@@ -66,11 +77,19 @@ function StudentControl(){
 
 function StudentInfo(props){
     return (
-        <Box  className="class">
-          
+      <Grid item xs={4}>
+
+        <Card sx={{ height:"100%",  display: "flex", flexDirection: "column", justifyContent: "space-between", color: "rgb(235, 232, 232)", background: "rgb(2, 20, 92)"}}>
+        <Box >
+        <Typography align="center" variant="h3">
             <div sx={{float: 'center'}}>{props.stud.firstName}</div> 
             <div sx={{float: 'center'}}>{props.stud.lastName}</div> 
+        </Typography>
+        <Divider sx={{backgroundColor: "white"}} />
         </Box>
+        </Card>
+        </Grid>
+
     )
 };
 

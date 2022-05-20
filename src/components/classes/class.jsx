@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import './class.css';
 import {ClassContext} from '../classes/context';
+import { CurrClassContext } from "./current_class_context";
 import { useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -14,11 +15,13 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import PersonIcon from '@mui/icons-material/Person';
 import TextField from '@mui/material/TextField';
-import { experimentalStyled as styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
+// import { experimentalStyled as styled } from '@mui/material/styles';
+// import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
+import { useNavigate } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
 
@@ -77,7 +80,7 @@ function AddClass(props) {
 
     return (
         <form onSubmit={handleSubmit} >
-          <InputLabel sx={{marginTop: '2ch', fontWeight: 'bold', fontSize: '3ch'}}>Name</InputLabel>
+          <InputLabel sx={{marginTop: '2ch', fontWeight: 'bold', fontSize: '3ch', color: 'rgb(2, 20, 92)'}}>Enter Class Name</InputLabel>
           <Box
             component="form"
             sx={{
@@ -101,8 +104,15 @@ function AddClass(props) {
     )
 }
 function Class(props){
-    
-  
+  const {currClass, setCurrClass} = useContext(CurrClassContext);
+  console.log(currClass);
+  let navigate = useNavigate();  
+  const handleClick = props =>{
+       setCurrClass(props);
+       console.log("logging props in handleClick");
+       console.log(props);
+       navigate("/attendanceNoted"); 
+  };
     return (
         <Grid item xs={4}>
 
@@ -113,8 +123,9 @@ function Class(props){
           color: (theme) =>
             theme.palette.mode === "dark" ? "grey.300" : "grey.800",  */}
         <Card  className="class" sx={{ height:"100%",  display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+        <Typography borderColor="white"><Button sx={{color: "rgb(235, 232, 232)"}} onClick={()=> handleClick(props.cls)}>Take Attendance</Button></Typography>
           <div>
-          <Typography align="center"><MenuBookIcon sx={{fontSize: "3em"}}/ ></Typography>
+          <Typography align="center"><MenuBookIcon sx={{fontSize: "3em"}}/></Typography>
           <Typography align="center" variant="h3">{props.cls.name} </Typography>
           </div>
           <Divider sx={{backgroundColor: "white"}} />
@@ -132,6 +143,7 @@ function Class(props){
             <div className="studentIconAndAmount">
            <PersonIcon sx={{fontSize: "5em"}}/><div><Typography align="center" variant="h5">{props.cls.students.length}</Typography></div>
            </div>
+           
            </Stack>
         </Card>
         </Grid>

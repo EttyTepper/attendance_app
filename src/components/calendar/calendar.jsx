@@ -8,7 +8,8 @@ import { sizeHeight } from '@mui/system';
 function CalendarCreate(){
     const SCOPES = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar";
     const [events, setEvents] = useState(null);
-  
+    console.log("events");
+    console.log(events);
     useEffect(() => {
       const script = document.createElement("script");
       script.async = true;
@@ -46,7 +47,6 @@ function CalendarCreate(){
        if (!localStorage.getItem("access_token")) {
          openSignInPopup();
        } else {
-         console.log("calling api")
          // Get events if access token is found without sign in popup
          fetch(
         `https://www.googleapis.com/calendar/v3/calendars/bgugmsnqjmdp54vg9c99gl12qk@group.calendar.google.com/events?key=AIzaSyCuCOQDfQSrn_p-P5KFl49hiOReDk1JDbA&orderBy=startTime&singleEvents=true`,
