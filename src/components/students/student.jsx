@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
 // import { ConnectingAirportsOutlined, TempleBuddhist } from '@mui/icons-material';
 // import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
@@ -79,14 +80,21 @@ function StudentInfo(props){
     return (
       <Grid item xs={4}>
 
-        <Card sx={{ height:"100%",  display: "flex", flexDirection: "column", justifyContent: "space-between", color: "rgb(235, 232, 232)", background: "rgb(2, 20, 92)"}}>
+        <Card sx={{padding: "1%", width: "60%", height:"100%", display: "flex", flexDirection: "column", justifyContent: "space-between", color: "rgb(235, 232, 232)", background: "rgb(2, 20, 92)"}}>
+        
         <Box >
+        <Stack direction="row" justifyContent= "space-between" fontSize="150%" >
         <Typography align="center" variant="h3">
             <div sx={{float: 'center'}}>{props.stud.firstName}</div> 
             <div sx={{float: 'center'}}>{props.stud.lastName}</div> 
         </Typography>
+         <div>Present = {props.stud.present}</div>
+         <div>Absent = {props.stud.absent}</div>
+         <div>Tardy = {props.stud.tardy}</div>
+        </Stack>
         <Divider sx={{backgroundColor: "white"}} />
         </Box>
+
         </Card>
         </Grid>
 
@@ -101,7 +109,7 @@ function AddStudent(props) {
        // e.preventDefault();
         console.log("in first method");
  
-        props.addStudent({firstName: firstName, lastName: lastName, present: 0, absent: 0, tardy: 0});
+        props.addStudent({firstName: firstName, lastName: lastName, present: 0, tardy: 0, absent: 0});
        
     }
         return(

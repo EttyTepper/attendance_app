@@ -13,6 +13,7 @@ import {StudentProvider} from '../students/context';
 import {ClassProvider} from '../classes/context';
 import {Attendance} from '../attendanceNoted/attendanceNoted';
 import { CurrClassProvider } from '../classes/current_class_context';
+import { CalendarProvider } from '../calendar/context';
 function App(){
 
   return (
@@ -20,6 +21,7 @@ function App(){
       <StudentProvider>
       <ClassProvider>
       <CurrClassProvider>
+      <CalendarProvider>
       <HashRouter>
       <Header/>
         <Routes>
@@ -28,7 +30,8 @@ function App(){
           <Route path="/students" element={<Student/>}></Route>
           <Route path="/attendanceNoted" element={<Attendance/>}></Route>
         </Routes> 
-        </HashRouter>  
+        </HashRouter> 
+        </CalendarProvider> 
         </CurrClassProvider> 
         </ClassProvider>
         </StudentProvider>

@@ -22,12 +22,15 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
+import { CommentsDisabledOutlined } from "@mui/icons-material";
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
 
 function CreateClass(){
     const {classes, setClasses} = useContext(ClassContext);
     const [personName, setPersonName] = useState([]);
+    console.log("in home screen");
+    console.log(classes);
     const addClass = props => {
         const newClass = [...classes, props];
         setClasses(newClass);
@@ -107,10 +110,14 @@ function Class(props){
   const {currClass, setCurrClass} = useContext(CurrClassContext);
   console.log(currClass);
   let navigate = useNavigate();  
-  const handleClick = props =>{
-       setCurrClass(props);
+  const handleClick = cls =>{
+      console.log("in click ");
+      console.log(cls.name);
+       setCurrClass(cls);
+             console.log("in click after ");
+      console.log(currClass.name);
        console.log("logging props in handleClick");
-       console.log(props);
+       console.log(cls);
        navigate("/attendanceNoted"); 
   };
     return (
@@ -123,7 +130,8 @@ function Class(props){
           color: (theme) =>
             theme.palette.mode === "dark" ? "grey.300" : "grey.800",  */}
         <Card  className="class" sx={{ height:"100%",  display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
-        <Typography borderColor="white"><Button sx={{color: "rgb(235, 232, 232)"}} onClick={()=> handleClick(props.cls)}>Take Attendance</Button></Typography>
+        <Typography borderColor="white">
+          <Button sx={{color: "rgb(235, 232, 232)"}} onClick={()=> handleClick(props.cls)}>Take Attendance</Button></Typography>
           <div>
           <Typography align="center"><MenuBookIcon sx={{fontSize: "3em"}}/></Typography>
           <Typography align="center" variant="h3">{props.cls.name} </Typography>

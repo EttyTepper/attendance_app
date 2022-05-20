@@ -3,13 +3,17 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import './calendar.css';
 import Box from '@mui/material/Box';
-import { sizeHeight } from '@mui/system';
+import {CalendarContext} from './context';
+import { useContext } from 'react';
 
 function CalendarCreate(){
     const SCOPES = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar";
+
+    const {calendarEvents, setCalendarEvents} = useContext(CalendarContext);
     const [events, setEvents] = useState(null);
-    console.log("events");
-    console.log(events);
+    setCalendarEvents(events);
+    console.log(calendarEvents);
+
     useEffect(() => {
       const script = document.createElement("script");
       script.async = true;
