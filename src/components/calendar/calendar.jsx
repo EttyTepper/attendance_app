@@ -105,7 +105,7 @@ function CalendarCreate(){
 return(
 
     <div className="calendarapi">
-    <Box sx={{fontSize: '5vw', fontFamily: 'cursive', textAlign: 'center', marginTop: '2vw'}}>SCHOOL CALENDAR</Box>
+    <Box sx={{fontSize: '5vw', fontFamily: 'cursive', textAlign: 'center', marginTop: '2vw', color: 'orange'}}>SCHOOL CALENDAR</Box>
     <FullCalendar 
     plugins={[dayGridPlugin]}
     initialView="dayGridMonth"

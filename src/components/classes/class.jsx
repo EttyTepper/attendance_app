@@ -15,37 +15,29 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import PersonIcon from '@mui/icons-material/Person';
 import TextField from '@mui/material/TextField';
-// import { experimentalStyled as styled } from '@mui/material/styles';
-// import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
-import { CommentsDisabledOutlined } from "@mui/icons-material";
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
 
 function CreateClass(){
     const {classes, setClasses} = useContext(ClassContext);
     const [personName, setPersonName] = useState([]);
-    console.log("in home screen");
-    console.log(classes);
     const addClass = props => {
         const newClass = [...classes, props];
         setClasses(newClass);
-        console.log(classes);
     };
 
     return (
        <div>
-        <div className="class-list-container">   
-      
-          <AddClass sx={{marginTop: '5ch'}} personName={personName} setPersonName={setPersonName} addClass={addClass}  />
+        <div className="class-list-container">     
+        <AddClass sx={{marginTop: '5ch'}} personName={personName} setPersonName={setPersonName} addClass={addClass}  />
         </div>
           <Box sx={{ flexGrow: 1, margin: "5%" }}>           
            <Grid  container spacing={4}>
-           {/* <div className="class_names"> */}
             {(classes.length === 0) ?
                 <div> </div>  :
                  
@@ -59,8 +51,6 @@ function CreateClass(){
                  
                   
                 ) ) }
-              
-            {/* </div> */}
             </Grid> 
             </Box>
            
@@ -108,7 +98,6 @@ function AddClass(props) {
 }
 function Class(props){
   const {currClass, setCurrClass} = useContext(CurrClassContext);
-  console.log(currClass);
   let navigate = useNavigate();  
   const handleClick = cls =>{
        setCurrClass(cls);
@@ -116,13 +105,6 @@ function Class(props){
   };
     return (
         <Grid item xs={4}>
-
-
-          {/* boxShadow: 2,
-          bgcolor: (theme) =>
-            theme.palette.mode === "dark" ? "#101010" : "#fff",
-          color: (theme) =>
-            theme.palette.mode === "dark" ? "grey.300" : "grey.800",  */}
         <Card  className="class" sx={{ height:"100%",  display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
         <Typography borderColor="white">
           <Button sx={{color: "rgb(235, 232, 232)"}} onClick={()=> handleClick(props.cls)}>Take Attendance</Button></Typography>
@@ -184,10 +166,6 @@ function getStyles(name, personName, theme) {
 
 function MultipleSelect(props) {
   const theme = useTheme();
-
-  const [value, setValue] = useState("");
-
-
   const handleChange = (event) => {
 
     const {
@@ -223,11 +201,7 @@ function MultipleSelect(props) {
           ))}
         </Select>
        
-      </FormControl>
-  
-        
-       
-        
+      </FormControl> 
     </div>
   );
 }

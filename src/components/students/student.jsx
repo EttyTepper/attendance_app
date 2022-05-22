@@ -1,7 +1,6 @@
-import { TextField, Box, Button } from '@mui/material';
+import { TextField, Box } from '@mui/material';
 import React, {useState, useContext} from 'react';
 import '../students/student.css';
-import { StudentContext } from '../students/context';
 import {ClassContext} from '../classes/context';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -11,7 +10,6 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 
 function StudentControl(){
@@ -31,35 +29,21 @@ function StudentControl(){
                 temp.push( classes[index]);
                 
             }
-    });
-    
-
+        });
         setClasses(temp);
-        console.log("in method");
-        console.log(temp);
-    //     console.log(classes);
     };
 
     return(
     <div>
-        <Box sx={{fontSize: '5vw', fontFamily: 'cursive', textAlign: 'center', marginTop: '2vw'}}>STUDENTS</Box>
+        <Box sx={{color: 'orange', fontSize: '5vw', fontFamily: 'cursive', textAlign: 'center', marginTop: '2vw'}}>STUDENTS</Box>
         <div className='add-student'>
-        <AddStudent addStudent={addStudent} />
-        <LongMenu setClassNameSelected={setClassNameSelected} classes={classes} />
-
-        
+        <AddStudent addStudent={addStudent} setClassNameSelected={setClassNameSelected} classes={classes}/>     
         </div>
 
         <div className="student_names">
-            {console.log("by Map")}
-            {console.log(classes[0])}
-            {console.log("Loggin chosen class")}
-            {console.log(classNameSelected)}
             {classes.length !== 0 ? <div>
             {classes[0].students.length === 0 ?
                 <div> </div>  : (
-       
-                 
                 classes[0].students.map((stud, index) => (
                  
                     <StudentInfo 
@@ -78,7 +62,7 @@ function StudentInfo(props){
     return (
       <Grid item xs={4}>
 
-        <Card sx={{marginLeft: "20%",  padding: "1%", width: "60%", height:"100%", display: "flex", flexDirection: "column", justifyContent: "space-between", color: "rgb(235, 232, 232)", background: "rgb(2, 20, 92)"}}>
+        <Card sx={{marginLeft: "20%", marginTop: "1%", padding: "1%", width: "60%", height:"100%", display: "flex", flexDirection: "column", justifyContent: "space-between", color: "rgb(235, 232, 232)", background: "rgb(2, 20, 92)"}}>
         
         <Box >
         <Stack direction="row" justifyContent= "space-between" fontSize="150%" >
@@ -90,7 +74,7 @@ function StudentInfo(props){
          <div>Absent = {props.stud.absent}</div>
          <div>Tardy = {props.stud.tardy}</div>
         </Stack>
-        <Divider sx={{backgroundColor: "white"}} />
+       
         </Box>
 
         </Card>
@@ -103,12 +87,10 @@ function AddStudent(props) {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
 
-    const handleSubmit = () => {
-       // e.preventDefault();
-        console.log("in first method");
-
-        props.addStudent({firstName: firstName, lastName: lastName, present: 0, tardy: 0, absent: 0});
-       
+    const handleSubmit = () => {;
+        if(firstName !== "" && lastName !== ""){
+          props.addStudent({firstName: firstName, lastName: lastName, present: 0, tardy: 0, absent: 0});
+        }
     }
         return(
             <div>
@@ -118,7 +100,7 @@ function AddStudent(props) {
             <TextField id="outlined-basic" variant="outlined" className="input" placeholder='Last Name'
                 lastname={props.lastname}
                 onChange={e => setLastName(e.target.value)}/>
-
+            <LongMenu setClassNameSelected={props.setClassNameSelected} classes={props.classes} />
             <IconButton onClick={() => handleSubmit()} ><AddBoxIcon />Add Student</IconButton>
             </div>
         )
@@ -136,9 +118,8 @@ function LongMenu(props) {
       setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
-    
-    props.setAnchorEl(null);
+    const handleClose = () => { 
+        props.setAnchorEl(null);
     };
 
     return (
