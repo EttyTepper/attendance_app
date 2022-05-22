@@ -34,7 +34,7 @@ function CalendarCreate(){
   
     const openSignInPopup = () => {
       window.gapi.auth2.authorize(
-                 { client_id: '293685623926-qs23u61lbndtriuct5dt882bourv96dh.apps.googleusercontent.com', scope: SCOPES },
+                 { client_id: '293685623926-qs23u61lbndtriuct5dt882bourv96dh.apps.googleusercontent.com', key: 'AIzaSyCuCOQDfQSrn_p-P5KFl49hiOReDk1JDbA', scope: SCOPES },
                  (res) => {
                    if (res) {
                      if (res.access_token)
