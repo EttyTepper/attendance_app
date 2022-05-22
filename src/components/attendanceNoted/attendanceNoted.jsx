@@ -41,16 +41,6 @@ function CreateAttendance(){
     const currClassCopy = JSON.parse(JSON.stringify(currClass));
     console.log("copy");
     console.log(currClassCopy);
-    const handleClick = props =>{
-       console.log("Attend. noted!");
-    //    props.students.map((stud, index) => (
-                 
-                  
-    //      {firstName: stud.firstName, lastName: stud.lastName, present: props.RadioButtonsGroup.value, tardy: 0, absent: 0}   
-                  
-    //     ))
-      
-    }
     console.log("currClass in attendance Noted");
     console.log(currClass);
     const submitAttendance = () => {
@@ -70,7 +60,7 @@ function CreateAttendance(){
             <DatePick/>
             {console.log("list of students")}
             {console.log(currClassCopy.students)}
-            { currClass.students.map((stud, index) => (
+            { currClassCopy.students.map((stud, index) => (
                  
                     <StudentInfo 
                         stud={stud}
@@ -98,7 +88,7 @@ function StudentInfo(props){
             <div sx={{float: 'center'}}>{props.stud.firstName}</div> 
             <div sx={{float: 'center'}}>{props.stud.lastName}</div> 
         </Typography>
-        <ErrorRadios stud={props.stud}/>
+        <ErrorRadios stud={props.stud} />
         </Box>
         </div>
         </Stack>
@@ -110,11 +100,8 @@ function StudentInfo(props){
     )
 };
 
-function AddAtt(props){
-
-}
 function RadioButtonsGroup() {
-  
+
     return (
     <div >
     <FormControl sx={{align: "center"}}>
@@ -142,17 +129,25 @@ function RadioButtonsGroup() {
   function ErrorRadios(props) {
   const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(false);
-  const [helperText, setHelperText] = React.useState('Choose wisely');
-
+  const [helperText, setHelperText] = React.useState('');
+  const {classes, setClasses} = useContext(ClassContext);
+  const {currClass, setCurrClass} = useContext(CurrClassContext);
+  console.log("lgging curr class in radio");
+  console.log(currClass);
+  const currClassCopy = JSON.parse(JSON.stringify(currClass));
+  console.log("copy in radio buttons");
+  console.log(currClassCopy);
   const handleRadioChange = (event) => {
     setValue(event.target.value);
     setHelperText(' ');
     setError(false);
   };
-
-  const handleClick = () => {
-    // event.preventDefault();
-
+  console.log(value);
+  const handleClick = (event) => {
+     event.preventDefault();
+   
+      const allStudentsTemp = [...currClassCopy.students];
+  
     if (value === 'present') {
         const amount =  props.stud.present;
         props.stud.present = amount + 1;
@@ -169,12 +164,17 @@ function RadioButtonsGroup() {
     //   setHelperText('Please select an option.');
     //   setError(true);
     }
-  };
+    currClass.students = allStudentsTemp;
+    // setCurrClass(currClassCopy);
+    // console.log("logging current class after radio submit");
+    // console.log(currClass);
+   };
+
 
   return (
     <form >
       <FormControl sx={{ m: 3 }} error={error} variant="standard"  id="demo-row-radio-buttons-group-label">
-        <FormLabel id="demo-error-radios">Pop quiz: MUI is...</FormLabel>
+        <FormLabel id="demo-error-radios">Enter attendance</FormLabel>
         <RadioGroup
             row
           aria-labelledby="demo-error-radios"
@@ -187,6 +187,7 @@ function RadioButtonsGroup() {
           <FormControlLabel value="tardy" control={<Radio />} label="Tardy" />
         </RadioGroup>
         <FormHelperText>{helperText}</FormHelperText>
+        {console.log(value)}
         <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined" onClick={handleClick}>
           Submit Individual
         </Button>

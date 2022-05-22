@@ -111,13 +111,7 @@ function Class(props){
   console.log(currClass);
   let navigate = useNavigate();  
   const handleClick = cls =>{
-      console.log("in click ");
-      console.log(cls.name);
        setCurrClass(cls);
-             console.log("in click after ");
-      console.log(currClass.name);
-       console.log("logging props in handleClick");
-       console.log(cls);
        navigate("/attendanceNoted"); 
   };
     return (

@@ -13,8 +13,6 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-// import { ConnectingAirportsOutlined, TempleBuddhist } from '@mui/icons-material';
-// import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
 function StudentControl(){
     const {classes, setClasses} = useContext(ClassContext);
@@ -44,7 +42,7 @@ function StudentControl(){
 
     return(
     <div>
-        STUDENT LISTS
+        <Box sx={{fontSize: '5vw', fontFamily: 'cursive', textAlign: 'center', marginTop: '2vw'}}>STUDENTS</Box>
         <div className='add-student'>
         <AddStudent addStudent={addStudent} />
         <LongMenu setClassNameSelected={setClassNameSelected} classes={classes} />
@@ -57,9 +55,9 @@ function StudentControl(){
             {console.log(classes[0])}
             {console.log("Loggin chosen class")}
             {console.log(classNameSelected)}
-            
+            {classes.length !== 0 ? <div>
             {classes[0].students.length === 0 ?
-                <div> there are zero students</div>  : (
+                <div> </div>  : (
        
                  
                 classes[0].students.map((stud, index) => (
@@ -70,7 +68,7 @@ function StudentControl(){
                         key={index}   
                     />
                   
-                )) ) }  
+                )) ) } </div> : <div> </div>}
         </div>
     </div>
     )
@@ -80,7 +78,7 @@ function StudentInfo(props){
     return (
       <Grid item xs={4}>
 
-        <Card sx={{padding: "1%", width: "60%", height:"100%", display: "flex", flexDirection: "column", justifyContent: "space-between", color: "rgb(235, 232, 232)", background: "rgb(2, 20, 92)"}}>
+        <Card sx={{marginLeft: "20%",  padding: "1%", width: "60%", height:"100%", display: "flex", flexDirection: "column", justifyContent: "space-between", color: "rgb(235, 232, 232)", background: "rgb(2, 20, 92)"}}>
         
         <Box >
         <Stack direction="row" justifyContent= "space-between" fontSize="150%" >
@@ -108,16 +106,16 @@ function AddStudent(props) {
     const handleSubmit = () => {
        // e.preventDefault();
         console.log("in first method");
- 
+
         props.addStudent({firstName: firstName, lastName: lastName, present: 0, tardy: 0, absent: 0});
        
     }
         return(
             <div>
-            <TextField id="outlined-basic" variant="outlined" className="input"
+            <TextField id="outlined-basic" variant="outlined" className="input" placeholder='First Name'
                 firstname={props.firstName}
                 onChange={e => setFirstName(e.target.value)}/>
-            <TextField id="outlined-basic" variant="outlined" className="input"
+            <TextField id="outlined-basic" variant="outlined" className="input" placeholder='Last Name'
                 lastname={props.lastname}
                 onChange={e => setLastName(e.target.value)}/>
 
@@ -156,6 +154,7 @@ function LongMenu(props) {
             Select Class
           <MoreVertIcon />
         </IconButton>
+        {props.classes.length !== 0 ? <div>
         <Menu
           id="long-menu"
           MenuListProps={{
@@ -171,10 +170,11 @@ function LongMenu(props) {
             },
           }}
         >
+          
           {props.classes.map((cls, index) => (
               <ClassMenuItem key={index} setAnchorEl={setAnchorEl} setClassNameSelected={props.setClassNameSelected} cls={cls} handleClose={handleClose}/>
           ))}
-        </Menu>
+        </Menu></div>: <div></div>}
       </div>
     );
   }
@@ -184,6 +184,7 @@ function LongMenu(props) {
         props.setClassNameSelected(props.cls.name);
         props.setAnchorEl(null);
       };
+    
       return(
     <MenuItem key={props.cls.name} index={props.index} selected={props.cls === ''} onClick={handleClose} >
     {props.cls.name}
