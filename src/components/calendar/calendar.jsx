@@ -3,16 +3,16 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import './calendar.css';
 import Box from '@mui/material/Box';
-import {CalendarContext} from './context';
-import { useContext } from 'react';
+import DatePicker from 'react-datepicker';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
+import "react-datepicker/dist/react-datepicker.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function CalendarCreate(){
     const SCOPES = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar";
-
-    const {calendarEvents, setCalendarEvents} = useContext(CalendarContext);
     const [events, setEvents] = useState(null);
-    setCalendarEvents(events);
-    console.log(calendarEvents);
 
     useEffect(() => {
       const script = document.createElement("script");
@@ -103,17 +103,58 @@ function CalendarCreate(){
 };
 
 return(
-
+  <div>
+    <Stack direction="row" >
     <div className="calendarapi">
-    <Box sx={{fontSize: '5vw', fontFamily: 'cursive', textAlign: 'center', marginTop: '2vw', color: 'orange'}}>SCHOOL CALENDAR</Box>
-    <FullCalendar 
-    plugins={[dayGridPlugin]}
-    initialView="dayGridMonth"
-    events={events}    
-  />
+      <Box sx={{fontSize: '5vw', fontFamily: 'cursive', textAlign: 'center', marginTop: '2vw', color: 'orange'}}>SCHOOL CALENDAR</Box>
+      <FullCalendar 
+      plugins={[dayGridPlugin]}
+      initialView="dayGridMonth"
+      events={events}    
+     />
+     </div>
+    <div className='listevents'>
+      <Box><Typography fontFamily= 'cursive' fontSize="150%" color="rgb(2, 20, 92)" marginTop="3%" padding="1%">List Events By Date:</Typography></Box>
+      <Typography fontSize="150%" padding="1%"><DatePick setEvents={setEvents} events={events} /></Typography>
+    </div>
+    </Stack>
   </div>
 );
 }
+
+function DatePick (props) {
+  const [startDate, setStartDate] = useState(new Date());
+  const YYYY = startDate.getFullYear();
+  let DD = startDate.getDate();
+  let MM = startDate.getMonth()+1;
+  if(DD<10)
+  {
+      DD=`0${DD}`;
+  }
+  if(MM<10)
+  {
+      MM=`0${MM}`;
+  }
+
+  return (
+    <div>
+    <DatePicker 
+      selected={startDate} 
+      onChange={date => setStartDate(date)} 
+    />
+   {(props.events === null) ?
+                <div> </div>  :               
+               props.events.map((e, index) => (
+            
+                (e.start === YYYY + "-" + MM + "-" + DD) ?
+                <Card sx={{margin: "auto auto", marginTop: "2%", padding: "1%", width: "60%", height:"100%", display: "flex", flexDirection: "column", alignItems: "center",justifyContent: "space-between", color: "rgb(235, 232, 232)", background: "rgb(2, 20, 92)"}}>
+                  <div>{e.title}</div>
+                </Card>
+                  : <div></div>           
+    ) ) }
+    </div>
+  );
+};
 
 export const Cal = () => {
     return <CalendarCreate/>

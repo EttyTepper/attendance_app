@@ -15,9 +15,9 @@ import Stack from '@mui/material/Stack';
 function StudentControl(){
     const {classes, setClasses} = useContext(ClassContext);
     const [classNameSelected, setClassNameSelected] = useState("");
+    const tempClasses = [...classes];
+    const index = tempClasses.findIndex((cls) => cls.name === classNameSelected);
     const addStudent = props => {
-        const tempClasses = [...classes];
-        const index = tempClasses.findIndex((cls) => cls.name === classNameSelected);
         const updatedClass = classes[index];
         const currStudentList = [...updatedClass.students]
         const newStudentList = [...currStudentList, props ];
@@ -41,10 +41,10 @@ function StudentControl(){
         </div>
 
         <div className="student_names">
-            {classes.length !== 0 ? <div>
-            {classes[0].students.length === 0 ?
+            {classes.length !== 0 && classNameSelected !== ""? <div>
+            {classes[index].students.length === 0 ?
                 <div> </div>  : (
-                classes[0].students.map((stud, index) => (
+                classes[index].students.map((stud, index) => (
                  
                     <StudentInfo 
                         stud={stud}

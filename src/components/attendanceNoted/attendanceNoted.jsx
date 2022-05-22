@@ -1,14 +1,12 @@
 import {ClassContext} from '../classes/context';
 import {CurrClassContext} from '../classes/current_class_context';
-import { CalendarContext } from '../calendar/context';
-import { useState, useContext } from 'react'; 
+import { useContext } from 'react'; 
 import * as React from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import DatePicker from 'react-datepicker';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
@@ -16,22 +14,10 @@ import { Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { Button } from '@mui/material';
 import FormHelperText from '@mui/material/FormHelperText';
-import Divider from '@mui/material/Divider'
-import "react-datepicker/dist/react-datepicker.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Divider from '@mui/material/Divider';
 
 
-// main implementation. using selected and onChange as main props to get and change the selected date value
-function DatePick () {
-  const [startDate, setStartDate] = useState(new Date());
 
-  return (
-    <DatePicker 
-      selected={startDate} 
-      onChange={date => setStartDate(date)} 
-    />
-  );
-};
 function CreateAttendance(){
     const {classes, setClasses} = useContext(ClassContext);
     const {currClass, setCurrClass} = useContext(CurrClassContext);
@@ -52,8 +38,6 @@ function CreateAttendance(){
 
     return(
         <div>
-            
-            {/* <DatePick/> */}
 
             <Box sx={{marginTop: "5%", width: "50%", marginRight: "auto", marginLeft: "auto"}}>
             <Box sx={{marginBottom: "4%"}}>

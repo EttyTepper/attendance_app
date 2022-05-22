@@ -1,6 +1,11 @@
 .calendarapi {
-  width: 60vw;
-  height: 30vw;
-  margin: auto auto;
+  width: 60%;
+  height: 30%;
+  margin-left: 13%;
 
+}
+
+.listevents {
+  margin-left: 3%;
+  margin-top: 15%;
 }
