@@ -13,11 +13,7 @@ body {
     border: 3px solid rgb(36, 110, 194);
     text-align: center;
   }
-  .class_names {
-      width: 25ch;
-      height: 18ch;
-      margin-top: 20em;
-  }
+
   .class{
     color: rgb(235, 232, 232) !important;
     background: rgb(2, 20, 92) !important;
@@ -44,18 +40,9 @@ body {
     font-size: 2em;
     text-align: center;
   }
-  
-   .create-class input[type="text"] {
-    margin: 2.5em 2em;
-    width: 80%;
-    outline: thick;
-    border: maroon;
-    padding: 0.5em;
-    font-size: large;
-  } 
 
 
-  studentIconAndAmount {
+  .studentIconAndAmount {
     display: flex;
     flex-direction: column;
     align-content: center;

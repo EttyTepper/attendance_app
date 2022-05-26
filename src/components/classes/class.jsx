@@ -29,6 +29,7 @@ function CreateClass(){
     const addClass = props => {
         const newClass = [...classes, props];
         setClasses(newClass);
+        
     };
 
     return (
@@ -52,8 +53,7 @@ function CreateClass(){
                   
                 ) ) }
             </Grid> 
-            </Box>
-           
+            </Box>          
           
         </div>
     )
@@ -61,30 +61,30 @@ function CreateClass(){
 
 function AddClass(props) {
     const [value, setValue] = useState("");
+
     const handleSubmit = e => {
         e.preventDefault();
         if(value !== '' ){
           props.addClass({name: value, day: props.personName, students: []});
         }
-      
+        props.setPersonName([]);
         setValue("");
     }
 
 
     return (
         <form onSubmit={handleSubmit} >
-          <InputLabel sx={{marginTop: '2ch', fontWeight: 'bold', fontSize: '3ch', color: 'rgb(2, 20, 92)'}}>Enter Class Name</InputLabel>
-          <Box
+          <InputLabel sx={{marginTop: '3%', fontWeight: 'bold', fontSize: '150%', color: 'rgb(2, 20, 92)'}}>Enter Class Name</InputLabel>
+          <Box 
             component="form"
             sx={{
-              '& > :not(style)': { m: 1, width: '55ch', height: '1ch' },
+              '& > :not(style)': { m: 4, width: '55%', height: '1ch'},
             }}
-            validate
+            noValidate
             autoComplete="off"
-            
           >
             
-            <TextField id="outlined-basic" variant="outlined" className="input"
+            <TextField id="outlined-basic" label="Class"  variant="outlined" className="input"
                 name={value}
                 day={props.personName}
                 onChange={e => setValue(e.target.value)}/>

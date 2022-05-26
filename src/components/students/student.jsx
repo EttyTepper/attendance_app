@@ -42,8 +42,9 @@ function StudentControl(){
 
         <div className="student_names">
             {classes.length !== 0 && classNameSelected !== ""? <div>
+             <Typography align="center" variant="h2" fontFamily="cursive">{classNameSelected}</Typography>
             {classes[index].students.length === 0 ?
-                <div> </div>  : (
+                <div> </div> : (
                 classes[index].students.map((stud, index) => (
                  
                     <StudentInfo 
@@ -91,13 +92,15 @@ function AddStudent(props) {
         if(firstName !== "" && lastName !== ""){
           props.addStudent({firstName: firstName, lastName: lastName, present: 0, tardy: 0, absent: 0});
         }
+        
+  
     }
         return(
             <div>
-            <TextField id="outlined-basic" variant="outlined" className="input" placeholder='First Name'
+            <TextField id="outlined-basic" label="First Name" variant="outlined" className="input"
                 firstname={props.firstName}
                 onChange={e => setFirstName(e.target.value)}/>
-            <TextField id="outlined-basic" variant="outlined" className="input" placeholder='Last Name'
+            <TextField id="outlined-basic" label="Last Name" variant="outlined" className="input" 
                 lastname={props.lastname}
                 onChange={e => setLastName(e.target.value)}/>
             <LongMenu setClassNameSelected={props.setClassNameSelected} classes={props.classes} />
